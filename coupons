@@ -1,0 +1,121 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .card:hover {
+    transform: scale(1.03);
+  }
+  .store-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .coupon {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #d6336c;
+    margin-bottom: 15px;
+  }
+  .btn {
+    background: #ff9800;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s ease;
+  }
+  .btn:hover {
+    background: #e68900;
+  }
+</style>
+
+<div class="grid" id="couponGrid"></div>
+
+<script>
+  // تعديل الكوبونات والروابط من هنا
+  const coupons = [
+    {name: "نون الخليج", code: "ABC10", url: "https://example.com"},
+    {name: "تو يو", code: "DEF20", url: "https://example.com"},
+    {name: "نون مصر", code: "GHI30", url: "https://example.com"},
+    {name: "جيني", code: "JKL40", url: "https://example.com"},
+    {name: "ناو ناو", code: "MNO50", url: "https://example.com"},
+    {name: "ترينديول", code: "PQR60", url: "https://example.com"},
+    {name: "ستايلي", code: "STY15", url: "https://example.com"},
+    {name: "نمشي", code: "NMC25", url: "https://example.com"},
+    {name: "فوغاكلوسيت", code: "VOG35", url: "https://example.com"},
+    {name: "امريكان ايجل", code: "AE45", url: "https://example.com"},
+    {name: "درعه", code: "DRU55", url: "https://example.com"},
+    {name: "رسيس", code: "RES65", url: "https://example.com"},
+    {name: "قولدن سنت", code: "GCS75", url: "https://example.com"},
+    {name: "ذي بودي شوب", code: "BDS85", url: "https://example.com"},
+    {name: "باث اند بودي", code: "BND95", url: "https://example.com"},
+    {name: "بلوار", code: "BLR05", url: "https://example.com"},
+    {name: "فيكتوريا سكريت", code: "VSC15", url: "https://example.com"},
+    {name: "عود ميلانو", code: "ODM25", url: "https://example.com"},
+    {name: "سيفورا", code: "SFR35", url: "https://example.com"},
+    {name: "متروبرازيل", code: "MTB45", url: "https://example.com"},
+    {name: "ليفيل شوز", code: "LVS55", url: "https://example.com"},
+    {name: "براند فور لس", code: "BFL65", url: "https://example.com"},
+    {name: "6 ستريت", code: "STR75", url: "https://example.com"},
+    {name: "ماكس فاشون", code: "MAX85", url: "https://example.com"},
+    {name: "ار اند بي", code: "RNB95", url: "https://example.com"},
+    {name: "سن اند ساند", code: "SNS05", url: "https://example.com"},
+    {name: "اندر ارمر", code: "UAR15", url: "https://example.com"},
+    {name: "بلومينغديلز", code: "BLM25", url: "https://example.com"},
+    {name: "وست الم", code: "WLM35", url: "https://example.com"},
+    {name: "بيتونيا", code: "BTN45", url: "https://example.com"},
+    {name: "متجر الكوزي", code: "ALZ55", url: "https://example.com"},
+    {name: "نيوبلانس", code: "NBL65", url: "https://example.com"},
+    {name: "اتش اند ام", code: "HNM75", url: "https://example.com"},
+    {name: "نظارات مغربي", code: "MGB85", url: "https://example.com"},
+    {name: "ايوا", code: "EWA95", url: "https://example.com"},
+    {name: "كارتون", code: "KRT05", url: "https://example.com"},
+    {name: "ستور اص", code: "STS15", url: "https://example.com"},
+    {name: "اير الو", code: "AIR25", url: "https://example.com"},
+    {name: "اف اند بي", code: "AFB35", url: "https://example.com"},
+    {name: "ايزيل", code: "EZL45", url: "https://example.com"},
+    {name: "بشره كير", code: "BKR55", url: "https://example.com"},
+    {name: "دبدوب", code: "DBD65", url: "https://example.com"},
+    {name: "مذركير", code: "MKR75", url: "https://example.com"},
+    {name: "ماماز اند باباز", code: "MBP85", url: "https://example.com"},
+    {name: "ممزورلد", code: "MMZ95", url: "https://example.com"}
+  ];
+
+  const grid = document.getElementById("couponGrid");
+
+  coupons.forEach(coupon => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    card.innerHTML = `
+      <div class="store-name">${coupon.name}</div>
+      <div class="coupon">${coupon.code}</div>
+      <button class="btn" onclick="copyAndGo('${coupon.code}', '${coupon.url}')">نسخ الكوبون والذهاب</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  function copyAndGo(code, url) {
+    navigator.clipboard.writeText(code).then(() => {
+      window.open(url, '_blank');
+    });
+  }
+</script>
